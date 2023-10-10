@@ -2,7 +2,7 @@ import { useState } from "react";
 import AIChatInput from "./components/AIChatInput";
 import AIChatResponse from "./components/AIChatResponse";
 import logo from "./logo.svg";
-import { md } from "./dummy";
+import { md, md2, md3 } from "./dummy";
 type ChatMessage = {
   type: "user" | "ai";
   text: string;
@@ -20,15 +20,15 @@ function App() {
         ...prev,
         {
           type: "ai",
-          text: md,
+          text: [md2, md3, md][prev.length % 3],
         },
       ]);
     }, 1000);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-neutral-900 ">
-      <div className="chatbox overflow-y-auto h-[60vh] w-[600px] border-neutral-700 border rounded-lg p-2">
+    <div className="flex flex-col h-screen max-w-3xl py-4 mx-auto bg-neutral-900">
+      <div className="flex flex-col flex-grow p-2 overflow-y-auto border rounded-lg border-neutral-700">
         {chatHistory.length === 0 && (
           <div className="flex items-center justify-center w-full h-full">
             <img src={logo} className="w-32" alt="logo" />

@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import { Tooltip } from "react-tooltip";
 
 import "react-tooltip/dist/react-tooltip.css";
+import remarkGfm from "remark-gfm";
 
 type AIChatResponseProps = {
   textResponse: string;
@@ -26,6 +27,7 @@ const AIChatResponse: React.FC<AIChatResponseProps> = ({ textResponse }) => {
       onChange={(e) => setEditedText(e.target.value)}></textarea>
   ) : (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       className="font-sans text-sm break-words text-neutral-200"
       components={{
         a: ({ node, children, ...props }) => {
