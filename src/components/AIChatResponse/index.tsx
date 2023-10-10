@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 import 'react-tooltip/dist/react-tooltip.css'
 
@@ -34,34 +34,41 @@ const AIChatResponse: React.FC<AIChatResponseProps> = ({ textResponse, reference
     );
 
     return (
-        <div className="w-[500px] p-4 text-sm bg-white border rounded-md shadow-sm">
-            <button
-                className="px-4 py-2 mb-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-                onClick={() => setEdit(!isEdit)}
-            >
-                {isEdit ? 'Cancel' : 'Edit'}
-            </button>
-
-            {isEdit && (
+        <div className="text-sm border rounded-lg shadow-sm bg-neutral-800 border-neutral-600 text-neutral-400">
+            <div className='p-4'>
                 <button
-                    className="px-4 py-2 ml-4 font-bold text-white bg-green-500 rounded hover:bg-green-700"
-                    onClick={saveText}
+                    className="px-4 py-2 mb-4 font-bold bg-blue-500 rounded hover:bg-blue-700"
+                    onClick={() => setEdit(!isEdit)}
                 >
-                    Save
+                    {isEdit ? 'Cancel' : 'Edit'}
                 </button>
-            )}
 
-            <div>{editTextElement}</div>
+                {isEdit && (
+                    <button
+                        className="px-4 py-2 ml-4 font-bold bg-green-500 rounded hover:bg-green-700"
+                        onClick={saveText}
+                    >
+                        Save
+                    </button>
+                )}
 
-            <div>
-                {referenceLinks.map((link, index) => (
-                    <ReactTooltip id={`tooltip-${index}`} key={index}>
-                        <span>{link.description}</span>
-                    </ReactTooltip>
-                ))}
+                <div>{editTextElement}</div>
+
+                <div>
+                    {referenceLinks.map((link, index) => (
+                        <a
+                            data-tooltip-id="my-tooltip"
+                            data-tooltip-html={`<span>${link.description}</span>`}
+                            data-tooltip-place="top"
+                            key={index}
+                        >
+                            {link.url}
+                        </a>
+
+                    ))}
+                </div>
             </div>
-
-            <div className="mt-4">
+            <div className="p-4 mt-4 border-t border-neutral-600">
                 <strong>Learn More:</strong>
                 <ul className="list-disc list-inside">
                     {referenceLinks.map((link, index) => (
@@ -80,6 +87,7 @@ const AIChatResponse: React.FC<AIChatResponseProps> = ({ textResponse, reference
                     ))}
                 </ul>
             </div>
+            <Tooltip id="my-tooltip" clickable />
         </div>
     );
 };
