@@ -8,8 +8,8 @@ const AIChatInput: React.FC<AIChatInputProps> = ({ onSubmit }) => {
     const [message, setMessage] = useState<string>('');
 
     const handleSend = () => {
-        if (message.trim() === '') return;
-
+        if (message.trim() === '')
+            return;
         onSubmit(message);
         setMessage('');
     };

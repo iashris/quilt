@@ -1,13 +1,39 @@
 @tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply mt-4 mb-2 font-semibold;
+  }
+  li{
+    @apply my-1 ml-4 list-decimal;
+  }
+  p{
+    @apply my-2;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
-*::-webkit-scrollbar {
+.chatbox::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-* {
+.chatbox {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+button{
+  color: white;
 }
