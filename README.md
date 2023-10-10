@@ -1,4 +1,5 @@
 
+![Screenshot](screenshot.png "Screenshot")
 
 # AI Chat Demo for Quilt
 
