@@ -1,15 +1,60 @@
+import { useState } from 'react';
+import AIChatInput from './components/AIChatInput';
 import AIChatResponse from './components/AIChatResponse';
+import logo from './logo.svg';
+type ChatMessage = {
+  type: 'user' | 'ai';
+  text: string;
+};
 
 function App() {
+  const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
+
+  const onSubmit = (message: string) => {
+    setChatHistory([...chatHistory, { type: 'user', text: message }]);
+
+    // Dummy AI Response
+    setTimeout(() => {
+      setChatHistory([
+        ...chatHistory,
+        { type: 'user', text: message },
+        {
+          type: 'ai',
+          text: '**Hello!** I am your AI assistant. [Learn More](http://example.com)'
+        }
+      ]);
+    }, 1000);
+  };
+
   return (
-    <div className='flex items-center justify-center h-screen bg-gray-200'>
-      <AIChatResponse
-        textResponse="**Hello!** This is a [link](http://example.com)"
-        referenceLinks={[
-          { url: 'http://example.com', description: 'Example' },
-          { url: 'http://google.com', description: 'Google' },
-        ]}
-      />
+    <div className='flex flex-col items-center justify-center h-screen bg-neutral-900 '>
+      <div className='overflow-y-auto h-[60vh] w-[600px] border-neutral-700 border rounded-lg p-2'>
+        {chatHistory.length === 0 && (
+          <div className='flex items-center justify-center w-full h-full'>
+            <img src={logo} className="w-32" alt="logo" />
+          </div>
+        )
+        }
+        {chatHistory.map((message, index) => (
+          message.type === 'ai' ? (
+            <AIChatResponse
+              key={index}
+              textResponse={message.text}
+              referenceLinks={[
+                { url: 'http://example.com', description: 'Example' },
+                { url: 'http://google.com', description: 'Google' },
+              ]}
+            />
+          ) : (
+            <div key={index} className="flex justify-end py-4 text-white">
+              <span className="p-2 px-4 bg-blue-500 rounded-lg">
+                {message.text}
+              </span>
+            </div>
+          )
+        ))}
+      </div>
+      <AIChatInput onSubmit={onSubmit} />
     </div>
   );
 }
